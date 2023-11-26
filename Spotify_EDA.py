@@ -79,8 +79,8 @@ discrete_numeric_columns = discrete_numeric
 label_encoder = LabelEncoder()
 
 # Apply label encoding to each discrete numeric column
-for column in discrete_numeric_columns:
-    df[column] = label_encoder.fit_transform(df[column])
+for col in categorical_cols:
+    df[col] = label_encoder.fit_transform(df[col])
 
 # Display the updated DataFrame
 print(df.head())
