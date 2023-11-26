@@ -1,7 +1,7 @@
-#%%[Markdown]
-#Modeling
+#%%[markdown]
+##Modeling to predict popularity
 #%%
-#Import 
+# Import 
 import pandas as pd
 import numpy as np
 from sklearn import preprocessing
@@ -11,6 +11,4 @@ from sklearn.ensemble import RandomForestClassifier
 from Spotify_EDA import df # Import df data frame from Spotify_EDA to use the processed data for modeling
 
 # %%
-
-
 # %%
