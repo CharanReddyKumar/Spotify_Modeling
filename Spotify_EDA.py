@@ -36,7 +36,16 @@ df = df.drop_duplicates() #remove all duplicates
 df.duplicated().sum()
 # %%
 df.info()
+# %%
+#Corelation matrix
+corr=df.corr()
+corr
 
+# heatmap of the correlation matrix
+plt.figure(figsize=(12, 10))
+sns.heatmap(corr, annot=True, cmap='coolwarm', fmt=".2f", linewidths=.5)
+plt.title('Correlation Matrix Heatmap')
+plt.show()
 # %%
 #Identify numeric and categorical columns
 
