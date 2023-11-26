@@ -1,7 +1,7 @@
-#%%[Markdown]
-#Modeling
+#%%[markdown]
+##Modeling to predict popularity
 #%%
-#Import 
+# Import 
 import pandas as pd
 import numpy as np
 from sklearn import preprocessing

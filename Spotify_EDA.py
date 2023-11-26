@@ -165,7 +165,8 @@ for feature in numeric_cols:
 
 # * Other Features: The distributions of other features are right-skewed.
 
-Now, to address the skewness, various operations like log transformation, square-root transformation, etc., can be performed. However, before applying any transformation, let's analyze the correlation of the continuous features with the target variable.
+# Various tarnsformations can be performed to remove the skewness.
+
 #%%
 for feature in ['explicit', 'mode', 'time_signature', 'key']:
     dataset=df.copy()
