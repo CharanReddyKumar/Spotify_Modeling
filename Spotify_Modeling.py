@@ -1,6 +1,5 @@
 #%%[Markdown]
-#EDA
-
+#Modeling
 #%%
 #Import 
 import pandas as pd
@@ -23,7 +22,6 @@ df.isnull().sum()
 df = df.drop("Unnamed: 0", axis=1) #remove the unnamed column
 # %%
 df.describe()
-
 # %%
 #checking for duplicates
 df.duplicated().sum()
@@ -33,5 +31,4 @@ df = df.drop_duplicates() #remove all duplicates
 df.duplicated().sum()
 # %%
 df.info()
-
 # %%
