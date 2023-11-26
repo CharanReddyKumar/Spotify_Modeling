@@ -41,6 +41,11 @@ df.info()
 corr=df.corr()
 corr
 
+# Correlation with 'popularity'
+correlation_with_popularity = corr['popularity'].sort_values(ascending=False)
+
+print(correlation_with_popularity)
+
 # heatmap of the correlation matrix
 plt.figure(figsize=(12, 10))
 sns.heatmap(corr, annot=True, cmap='coolwarm', fmt=".2f", linewidths=.5)
@@ -80,6 +85,7 @@ for column in discrete_numeric_columns:
 # Display the updated DataFrame
 print(df.head())
 
+
 # %%[Markdown]
 ## Popularity EDA
 
@@ -118,4 +124,11 @@ for feature in categorical_features:
 
 
 # %%
+for feature in discrete_numeric_columns:
+    dataset=df.copy()
+    sns.barplot(x=feature, y=dataset['popularity'], data=dataset, estimator=np.median)
+    plt.show()
+
+#%%[markdown]
+
 # %%
