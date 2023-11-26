@@ -41,6 +41,11 @@ df.info()
 corr=df.corr()
 corr
 
+# Correlation with 'popularity'
+correlation_with_popularity = corr['popularity'].sort_values(ascending=False)
+
+print(correlation_with_popularity)
+
 # heatmap of the correlation matrix
 plt.figure(figsize=(12, 10))
 sns.heatmap(corr, annot=True, cmap='coolwarm', fmt=".2f", linewidths=.5)
@@ -74,11 +79,12 @@ discrete_numeric_columns = discrete_numeric
 label_encoder = LabelEncoder()
 
 # Apply label encoding to each discrete numeric column
-for column in discrete_numeric_columns:
-    df[column] = label_encoder.fit_transform(df[column])
+for col in categorical_cols:
+    df[col] = label_encoder.fit_transform(df[col])
 
 # Display the updated DataFrame
 print(df.head())
+
 
 # %%[Markdown]
 ## Popularity EDA
@@ -118,4 +124,11 @@ for feature in categorical_features:
 
 
 # %%
+for feature in discrete_numeric_columns:
+    dataset=df.copy()
+    sns.barplot(x=feature, y=dataset['popularity'], data=dataset, estimator=np.median)
+    plt.show()
+
+#%%[markdown]
+
 # %%
