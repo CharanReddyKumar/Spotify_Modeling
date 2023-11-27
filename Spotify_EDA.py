@@ -42,6 +42,7 @@
 # * track_genre: The genre in which the track belongs
 
 #%%[markdown]
+
 ## EDA and Variable Selection
 
 #%%
@@ -65,6 +66,7 @@ df.head(5) #Read Data first 5 rows
 df.isnull().sum()
 # %%
 #Since there are only 3 misisng values, we can just drop them 
+
 #Remove NA values
 df = df.dropna()
 df.isnull().sum()
@@ -72,7 +74,9 @@ df.isnull().sum()
 # %%
 df = df.drop("Unnamed: 0", axis=1) #remove the unnamed column
 # %%
+
 #Previews dataframe
+
 df.describe()
 
 # %%
@@ -106,7 +110,9 @@ plt.show()
 
 #%%[markdwon]
 
+
 # As one of our target variables is popularity we dont see any great significant corelation between any other feature variable, so we can use regression models if we 
+
 # perform transformation if the data is not normally distributed or else we can try other modeling methods.
 # %%
 #Identify numeric and categorical columns
@@ -211,6 +217,7 @@ for feature in features_continuous_numerical:
 #%%[markdown]
 # We see that apart from energy, acousticness and valence, there are a lot of outliers in all other features
 # %%
+
 #########################
 #       GENRE EDA       #
 #########################
@@ -294,3 +301,4 @@ for feature in ['explicit', 'mode', 'time_signature', 'key']:
     plt.show()
 
 # %%
+
