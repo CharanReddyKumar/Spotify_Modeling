@@ -42,7 +42,8 @@
 # * track_genre: The genre in which the track belongs
 
 #%%[markdown]
-## EDA
+
+## EDA and Variable Selection
 
 #%%
 #Import 
@@ -64,6 +65,8 @@ df.head(5) #Read Data first 5 rows
 #Check for null values
 df.isnull().sum()
 # %%
+#Since there are only 3 misisng values, we can just drop them 
+
 #Remove NA values
 df = df.dropna()
 df.isnull().sum()
@@ -71,6 +74,9 @@ df.isnull().sum()
 # %%
 df = df.drop("Unnamed: 0", axis=1) #remove the unnamed column
 # %%
+
+#Previews dataframe
+
 df.describe()
 
 # %%
@@ -81,7 +87,11 @@ df.duplicated().sum()
 df = df.drop_duplicates() #remove all duplicates
 df.duplicated().sum()
 # %%
+#View data type and info, inform us how to format variables later on for modeling
 df.info()
+
+df_genres = df.copy()
+
 # %%
 #Corelation matrix
 corr=df.corr()
@@ -100,7 +110,9 @@ plt.show()
 
 #%%[markdwon]
 
-# As our target variable is popularity we dont see any great significant corelation between any other feature variable, so we can use regression models if we 
+
+# As one of our target variables is popularity we dont see any great significant corelation between any other feature variable, so we can use regression models if we 
+
 # perform transformation if the data is not normally distributed or else we can try other modeling methods.
 # %%
 #Identify numeric and categorical columns
@@ -205,3 +217,88 @@ for feature in features_continuous_numerical:
 #%%[markdown]
 # We see that apart from energy, acousticness and valence, there are a lot of outliers in all other features
 # %%
+
+#########################
+#       GENRE EDA       #
+#########################
+df_genres.head()
+#check variable types prior to encoding, as we need to know
+# the genre label to select the desired ones for analysis 
+data_types = df_genres.dtypes
+#track_genre is a string with several categories, lets examine further 
+
+#All of the genres present in the dataset
+unique_explicit_values = df_genres['track_genre'].unique()
+print(unique_explicit_values)
+num_unique_genres = df_genres['track_genre'].nunique()
+print(f'Number of unique genres: {num_unique_genres}')
+
+#there are 114 unique genres... we will subset our data into predicting just a few of these
+#%%
+#Do all genres have enough data to explore? 
+#Count the occurrences of each genre in the 'track_genre' column
+genre_counts = df_genres['track_genre'].value_counts()
+# Count the number of genres with at least 1000 rows
+num_genres_with_1000_rows = (genre_counts >= 1000).sum()
+print(f"Number of genres with at least 1000 rows: {num_genres_with_1000_rows}")
+#33 genres have 1000+  records, lets see what those are: 
+# Filter genres with at least 1000 rows
+genres_1000 = genre_counts[genre_counts >= 1000].index
+
+# Subset the dataframe based on selected genres
+df_selected = df_genres[df_genres['track_genre'].isin(genres_1000)]
+
+# Display the selected genres
+print("Selected genres with at least 1000 rows:")
+print(genres_1000)
+#Lets go with a subset of genres from those with at least 1000 rows so that 
+#we can ensure enough training data 
+
+#%% 
+# selecting relevant genres:
+# I would like to explore how spotify can tell the difference between
+#similar genres, lets select electornic music that we might not know
+#the specific differences between ourselves and see if the model can classify them
+
+# Selecting relevant genres:
+# I would like to explore how Spotify can tell the difference between
+# similar genres. Let's select electronic music genres that we might not know
+# the specific differences between ourselves and see if the model can classify them.
+#Also add inrock-n-roll, it is upbeat but not edm to see if model picks up on those differences
+
+genres_list = ['disco', 'electronic', 'industrial', 'techno', 'synth-pop', 'funk', 'rock-n-roll']
+selected_genres = df_selected[df_selected['track_genre'].isin(genres_list)]
+df_selected_genres_shape = selected_genres.shape
+print(f"Shape of the selected genres DataFrame: {df_selected_genres_shape}")
+selected_genres.head()
+
+#%%
+#now lets encode the relevant genres 
+# Fit and transform the 'track_genre' column using .loc
+selected_genres.loc[:, 'genre'] = label_encoder.fit_transform(selected_genres['track_genre'])
+
+#%%
+features_continuous_numerical
+# Set up subplots
+fig, axes = plt.subplots(nrows=3, ncols=4, figsize=(15, 10))
+fig.suptitle('Distribution of Features by Genre')
+
+# Plot histograms for each feature by genre
+for i, feature in enumerate(features_continuous_numerical):
+    row, col = divmod(i, 4)
+    sns.histplot(data=selected_genres, x=feature, hue='track_genre', bins=30, kde=True, ax=axes[row, col], palette='viridis')
+    axes[row, col].set_title(feature)
+
+# Adjust layout
+plt.tight_layout(rect=[0, 0, 1, 0.96])
+plt.show()
+
+#%%
+#examine categorical / factor variables 
+for feature in ['explicit', 'mode', 'time_signature', 'key']:
+    dataset=selected_genres
+    sns.barplot(x=feature, y=selected_genres['genre'], data=selected_genres, estimator=np.median)
+    plt.show()
+
+# %%
+
