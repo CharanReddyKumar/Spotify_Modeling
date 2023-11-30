@@ -351,3 +351,21 @@ plt.show()
 #This part of the script uses a heatmap to visualize the correlation matrix of the dataset.
 #It helps in understanding the correlation between the features of the dataset.
 #And from the plot below, we can see that 'danceability' has high correlation with 'valence'.
+
+# %%
+# Displaying the correlation values of 'danceability' with other features
+danceability_correlation = correlation['danceability'].sort_values(ascending=False)
+print("Correlation of 'danceability' with other features:\n", danceability_correlation)
+
+# %%
+# Scatter plot between 'danceability' and 'valence'
+plt.figure(figsize=(8, 6))
+sns.scatterplot(x='danceability', y='valence', data=df_danceabiltiy)
+plt.title("Scatter Plot of 'danceability' and 'valence'")
+plt.show()
+# %% [markdown]
+#This part of the script uses a scatter plot to visualize the relationship between 'danceability' and 'valence'.
+#It helps in understanding the relationship between the two features.
+#And from the plot below, we can see that 'danceability' and 'valence' are positively correlated.
+
+# %%
