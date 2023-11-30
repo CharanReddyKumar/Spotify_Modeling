@@ -306,3 +306,10 @@ for feature in ['explicit', 'mode', 'time_signature', 'key']:
 ####################################
 #       DANCEABILTY EDA            #
 ####################################
+
+# Distribution of 'danceability'
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
+sns.histplot(df_danceabiltiy['danceability'], kde=True)
+plt.title('Distribution of Danceability')
+# %%
