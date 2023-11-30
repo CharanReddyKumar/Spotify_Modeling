@@ -337,3 +337,17 @@ plt.show()
 #A box plot is used here to visualize the distribution of 'danceability'.
 #It's particularly useful for spotting outliers and understanding the quartiles of the 'danceability' distribution.
 #And from the plot below, we can see that there are no outliers in the 'danceability' feature.
+
+# %%
+# Correlation matrix focusing on 'danceability'
+correlation = df_danceabiltiy.corr()
+
+# Visualize the correlation matrix
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation, annot=True, fmt=".2f", cmap='coolwarm')
+plt.title("Correlation Matrix")
+plt.show()
+# %% [markdown]
+#This part of the script uses a heatmap to visualize the correlation matrix of the dataset.
+#It helps in understanding the correlation between the features of the dataset.
+#And from the plot below, we can see that 'danceability' has high correlation with 'valence'.
