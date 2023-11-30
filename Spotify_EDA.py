@@ -312,4 +312,28 @@ plt.figure(figsize=(12, 6))
 plt.subplot(1, 2, 1)
 sns.histplot(df_danceabiltiy['danceability'], kde=True)
 plt.title('Distribution of Danceability')
+# %% [markdown]
+#This part of the script uses a histogram and a kernel density estimate (KDE) to visualize the distribution of the 'danceability' feature.
+#It helps in understanding the spread and central tendency of 'danceability' values. And from the plot below, we can see that the distribution of 'danceability' is almost normal.
+
 # %%
+# Distribution of 'danceability' by 'mode'
+plt.subplot(1, 2, 2)
+sns.histplot(x='danceability', hue='mode', data=df_danceabiltiy, kde=True)
+plt.title('Distribution of Danceability by Mode')
+plt.show()
+# %% [markdown]
+#This part of the script uses a histogram and a KDE to visualize the distribution of the 'danceability' feature by 'mode'.
+#It helps in understanding the spread and central tendency of 'danceability' values by 'mode'. And from the plot below, we can see that the distribution of 'danceability' is almost normal for both the modes.
+
+# %%
+# Box plot for 'danceability'
+plt.subplot(1, 2, 2)
+sns.boxplot(y=df_danceabiltiy['danceability'])
+plt.title('Box Plot of Danceability')
+plt.show()
+
+# %% [markdown]
+#A box plot is used here to visualize the distribution of 'danceability'.
+#It's particularly useful for spotting outliers and understanding the quartiles of the 'danceability' distribution.
+#And from the plot below, we can see that there are no outliers in the 'danceability' feature.
