@@ -89,7 +89,7 @@ df.duplicated().sum()
 # %%
 #View data type and info, inform us how to format variables later on for modeling
 df.info()
-
+#%%
 df_genres = df.copy()
 
 # %%
@@ -127,6 +127,7 @@ for col in df.columns:
 
 print('numeric columns:', numeric_cols)
 print('Categorical columns:', categorical_cols)
+
 
 # %%
 # Seperate out the discrete numeric columns
@@ -264,41 +265,52 @@ print(genres_1000)
 # I would like to explore how Spotify can tell the difference between
 # similar genres. Let's select electronic music genres that we might not know
 # the specific differences between ourselves and see if the model can classify them.
-#Also add inrock-n-roll, it is upbeat but not edm to see if model picks up on those differences
 
-genres_list = ['disco', 'electronic', 'industrial', 'techno', 'synth-pop', 'funk', 'rock-n-roll']
+genres_list = ['disco', 'electronic', 'industrial', 'techno', 'synth-pop', 'funk']
 selected_genres = df_selected[df_selected['track_genre'].isin(genres_list)]
 df_selected_genres_shape = selected_genres.shape
 print(f"Shape of the selected genres DataFrame: {df_selected_genres_shape}")
 selected_genres.head()
 
 #%%
-#now lets encode the relevant genres 
-# Fit and transform the 'track_genre' column using .loc
-selected_genres.loc[:, 'genre'] = label_encoder.fit_transform(selected_genres['track_genre'])
+import matplotlib.pyplot as plt
+encoded_genres = selected_genres['genre']
 
-#%%
-features_continuous_numerical
-# Set up subplots
-fig, axes = plt.subplots(nrows=3, ncols=4, figsize=(15, 10))
-fig.suptitle('Distribution of Features by Genre')
-
-# Plot histograms for each feature by genre
-for i, feature in enumerate(features_continuous_numerical):
-    row, col = divmod(i, 4)
-    sns.histplot(data=selected_genres, x=feature, hue='track_genre', bins=30, kde=True, ax=axes[row, col], palette='viridis')
-    axes[row, col].set_title(feature)
-
-# Adjust layout
-plt.tight_layout(rect=[0, 0, 1, 0.96])
+plt.hist(encoded_genres, bins=len(genres_list), align='mid', rwidth=0.8, color='skyblue')
+plt.xlabel('Encoded Genre')
+plt.ylabel('Frequency')
+plt.title('Histogram of Encoded Genres')
+plt.xticks(range(len(genres_list)), genres_list)
 plt.show()
 
-#%%
-#examine categorical / factor variables 
-for feature in ['explicit', 'mode', 'time_signature', 'key']:
-    dataset=selected_genres
-    sns.barplot(x=feature, y=selected_genres['genre'], data=selected_genres, estimator=np.median)
-    plt.show()
 
 # %%
+#plot the numeric variables by genre 
+# checking the outliers
+features_continuous_numerical = ['popularity',
+ 'duration_ms',
+ 'danceability',
+ 'energy',
+ 'loudness',
+ 'speechiness',
+ 'acousticness',
+ 'instrumentalness',
+ 'liveness',
+ 'valence',
+ 'tempo']
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.set(style="whitegrid")
+fig, axes = plt.subplots(nrows=4, ncols=3, figsize=(15, 12))
+axes = axes.flatten()
+for i, feature in enumerate(features_continuous_numerical):
+    sns.boxplot(x='genre', y=feature, data=selected_genres, ax=axes[i])
+    axes[i].set_title(f'{feature} by Genre')
+plt.tight_layout()
+
+plt.show()
+
+# %%
+#categorical columns to explore are:
+categorical_columns =  ['track_id', 'artists', 'album_name', 'track_name', 'explicit']
 
