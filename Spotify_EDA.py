@@ -91,6 +91,7 @@ df.duplicated().sum()
 df.info()
 
 df_genres = df.copy()
+df_danceabiltiy = df.copy()
 
 # %%
 #Corelation matrix
@@ -302,3 +303,6 @@ for feature in ['explicit', 'mode', 'time_signature', 'key']:
 
 # %%
 
+####################################
+#       DANCEABILTY EDA            #
+####################################
