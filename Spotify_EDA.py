@@ -91,6 +91,7 @@ df.duplicated().sum()
 df.info()
 #%%
 df_genres = df.copy()
+df_danceabiltiy = df.copy()
 
 # %%
 #Corelation matrix
@@ -314,3 +315,69 @@ plt.show()
 #categorical columns to explore are:
 categorical_columns =  ['track_id', 'artists', 'album_name', 'track_name', 'explicit']
 
+####################################
+#       DANCEABILTY EDA            #
+####################################
+
+# Distribution of 'danceability'
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
+sns.histplot(df_danceabiltiy['danceability'], kde=True)
+plt.title('Distribution of Danceability')
+# %% [markdown]
+#This part of the script uses a histogram and a kernel density estimate (KDE) to visualize the distribution of the 'danceability' feature.
+#It helps in understanding the spread and central tendency of 'danceability' values. And from the plot below, we can see that the distribution of 'danceability' is almost normal.
+
+# %%
+# Distribution of 'danceability' by 'mode'
+plt.subplot(1, 2, 2)
+sns.histplot(x='danceability', hue='mode', data=df_danceabiltiy, kde=True)
+plt.title('Distribution of Danceability by Mode')
+plt.show()
+# %% [markdown]
+#This part of the script uses a histogram and a KDE to visualize the distribution of the 'danceability' feature by 'mode'.
+#It helps in understanding the spread and central tendency of 'danceability' values by 'mode'. And from the plot below, we can see that the distribution of 'danceability' is almost normal for both the modes.
+
+# %%
+# Box plot for 'danceability'
+plt.subplot(1, 2, 2)
+sns.boxplot(y=df_danceabiltiy['danceability'])
+plt.title('Box Plot of Danceability')
+plt.show()
+
+# %% [markdown]
+#A box plot is used here to visualize the distribution of 'danceability'.
+#It's particularly useful for spotting outliers and understanding the quartiles of the 'danceability' distribution.
+#And from the plot below, we can see that there are no outliers in the 'danceability' feature.
+
+# %%
+# Correlation matrix focusing on 'danceability'
+correlation = df_danceabiltiy.corr()
+
+# Visualize the correlation matrix
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation, annot=True, fmt=".2f", cmap='coolwarm')
+plt.title("Correlation Matrix")
+plt.show()
+# %% [markdown]
+#This part of the script uses a heatmap to visualize the correlation matrix of the dataset.
+#It helps in understanding the correlation between the features of the dataset.
+#And from the plot below, we can see that 'danceability' has high correlation with 'valence'.
+
+# %%
+# Displaying the correlation values of 'danceability' with other features
+danceability_correlation = correlation['danceability'].sort_values(ascending=False)
+print("Correlation of 'danceability' with other features:\n", danceability_correlation)
+
+# %%
+# Scatter plot between 'danceability' and 'valence'
+plt.figure(figsize=(8, 6))
+sns.scatterplot(x='danceability', y='valence', data=df_danceabiltiy)
+plt.title("Scatter Plot of 'danceability' and 'valence'")
+plt.show()
+# %% [markdown]
+#This part of the script uses a scatter plot to visualize the relationship between 'danceability' and 'valence'.
+#It helps in understanding the relationship between the two features.
+#And from the plot below, we can see that 'danceability' and 'valence' are positively correlated.
+
+# %%
