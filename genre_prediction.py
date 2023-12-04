@@ -48,6 +48,43 @@ genres_list = ['disco', 'electronic', 'industrial', 'techno', 'synth-pop', 'funk
 selected_genres = df_selected[df_selected['track_genre'].isin(genres_list)]
 
 #%% feature selection 
+#Lets select the relevant columns. We won't be needing to encode aritst name etc
+
+column_names = selected_genres.columns
+print(column_names)
+#lets select just the ones we need
+# Assuming selected_genres is your DataFrame
+columns_to_select = ['popularity', 'duration_ms', 'explicit', 'danceability', 'energy', 'key', 
+                     'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness',
+                     'valence', 'tempo', 'time_signature', 'track_genre']  # Replace with the actual column names you want to select
+
+# Create a new DataFrame with selected columns
+predict_genre = selected_genres[columns_to_select].copy()
+
+#%%
+#Identify numeric and categorical columns
+numeric_cols = []
+categorical_cols = []
+for col in predict_genre.columns:
+    if predict_genre[col].dtype == np.float64 or predict_genre[col].dtype == np.int64:
+        numeric_cols.append(col)
+    else:
+        categorical_cols.append(col)
+
+print('numeric columns:', numeric_cols)
+print('Categorical columns:', categorical_cols)
+#%%
+# Create a LabelEncoder object
+label_encoder = LabelEncoder()
+
+for col in categorical_cols:
+    predict_genre[col] = label_encoder.fit_transform(predict_genre[col])
+
+# Display the updated DataFrame
+print(predict_genre.head())
+
+#%% 
+
 
 
 #%%glm model
