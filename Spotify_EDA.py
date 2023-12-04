@@ -275,7 +275,7 @@ selected_genres.head()
 
 #%%
 import matplotlib.pyplot as plt
-encoded_genres = selected_genres['genre']
+encoded_genres = selected_genres['track_genre']
 
 plt.hist(encoded_genres, bins=len(genres_list), align='mid', rwidth=0.8, color='skyblue')
 plt.xlabel('Encoded Genre')
@@ -305,16 +305,13 @@ sns.set(style="whitegrid")
 fig, axes = plt.subplots(nrows=4, ncols=3, figsize=(15, 12))
 axes = axes.flatten()
 for i, feature in enumerate(features_continuous_numerical):
-    sns.boxplot(x='genre', y=feature, data=selected_genres, ax=axes[i])
+    sns.boxplot(x='track_genre', y=feature, data=selected_genres, ax=axes[i])
     axes[i].set_title(f'{feature} by Genre')
 plt.tight_layout()
 
 plt.show()
 
-# %%
-#categorical columns to explore are:
-categorical_columns =  ['track_id', 'artists', 'album_name', 'track_name', 'explicit']
-
+#%%
 ####################################
 #       DANCEABILTY EDA            #
 ####################################
