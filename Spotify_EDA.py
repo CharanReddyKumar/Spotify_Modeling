@@ -137,7 +137,9 @@ print(df.head())
 
 
 # %%[Markdown]
-## Popularity EDA
+#########################
+#    POPULARITY EDA     #
+#########################
 
 #%%
 # Distribution of Popularity
