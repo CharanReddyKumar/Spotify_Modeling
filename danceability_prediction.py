@@ -32,3 +32,14 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
+
+# Building the Linear Regression model
+model = LinearRegression()
+model.fit(X_train_scaled, y_train)
+
+# Predicting and evaluating the model
+y_pred = model.predict(X_test_scaled)
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f'MSE: {mse}, R-squared: {r2}')
