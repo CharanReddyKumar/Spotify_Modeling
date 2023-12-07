@@ -173,3 +173,72 @@ ax[1].set_xticklabels(models, rotation=45, ha='right')
 
 plt.tight_layout()
 plt.show()
+# %%[markdown]
+## 1. Linear Regression
+#
+#MSE: 0.0203
+#
+#R-squared: 0.3262
+#
+#Analysis:
+#The Linear Regression model, with an MSE of 0.0203, indicates a moderate level of prediction error.
+#An R-squared value of 0.3262 suggests that approximately 32.62% of the variance in danceability can be explained by the model.
+#Interpretation: This model provides a basic level of prediction capability but isn't highly accurate in capturing the complexities of the data.
+#
+## 2. Random Forest Regressor
+#
+#MSE: 0.0087
+#
+#R-squared: 0.7115
+#
+#Analysis:
+#The Random Forest Regressor significantly improves the prediction with a lower MSE of 0.0087, indicating more accurate predictions.
+# A higher R-squared value of 0.7115 shows that it can explain about 71.15% of the variance.
+# Interpretation: This model, with its ensemble approach, captures more nuances in the data compared to the Linear Regression model.
+#
+## 3. Gradient Boosting Regressor
+#
+# MSE: 0.0135
+#
+# R-squared: 0.5521
+#
+# Analysis:
+# MSE of 0.0135 is an improvement over Linear Regression but not as good as Random Forest.
+# R-squared value of 0.5521 indicates it explains about 55.21% of the variance.
+# Interpretation: Gradient Boosting provides a balance between the simplicity of Linear Regression and the complexity of Random Forest.
+#
+## 4. Tuned Random Forest Regressor
+#
+# MSE: 0.0086
+#
+# R-squared: 0.7136
+#
+# Analysis:
+# The MSE improves slightly to 0.0086, and R-squared increases to 0.7136 in the tuned model.
+# Interpretation: Fine-tuning the Random Forest model has led to a marginal but notable improvement, making it the most accurate model among those tested.
+#
+## 5. Tuned Random Forest Regressor (Extended)
+#
+# MSE: 0.0087
+#
+# R-squared: 0.7094
+#
+# Analysis:
+# The MSE is similar to the standard Random Forest, and the R-squared is slightly lower.
+# Interpretation: Extended tuning does not significantly change the performance, indicating that the basic tuning was already quite effective.
+#
+## 6. XGBoost Regressor
+#
+# MSE: 0.0100
+#
+# R-squared: 0.6681
+#
+# Analysis:
+# The MSE is higher than the Tuned Random Forest, indicating slightly less accurate predictions.
+# An R-squared of 0.6681 is respectable but not the highest among the models.
+# Interpretation: XGBoost performs well, but in this case, it's slightly outperformed by the Tuned Random Forest model.
+#
+## Overall Conclusion
+# The Tuned Random Forest Regressor stands out as the most effective model for this task, achieving the lowest MSE and highest R-squared value. It indicates a strong balance between accuracy and the ability to explain the variance in danceability.
+# Each model has its strengths and weaknesses, and the choice of model can depend on the specific requirements of the task at hand, such as the need for interpretability (Linear Regression) vs. predictive power (Random Forest, XGBoost).
+# %%
