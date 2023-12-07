@@ -161,3 +161,32 @@ voting_model.fit(X_train, y_train)
 y_pred_voting = voting_model.predict(X_test)
 print("Voting Regressor RMSE:", mean_squared_error(y_test, y_pred_voting, squared=False))
 print("Voting Regressor R² Score:", r2_score(y_test, y_pred_voting))
+
+#%%
+from sklearn.ensemble import StackingRegressor
+from sklearn.linear_model import Ridge
+from sklearn.ensemble import RandomForestRegressor
+from xgboost import XGBRegressor
+
+# Define base models
+estimators = [
+    ('random_forest', RandomForestRegressor(n_estimators=100, random_state=42)),
+    ('xgboost', XGBRegressor(n_estimators=100, random_state=42))
+]
+
+# Define final meta-learner model
+final_estimator = Ridge()
+
+# Create the Stacking Regressor
+stacking_regressor = StackingRegressor(
+    estimators=estimators,
+    final_estimator=final_estimator
+)
+
+# Fit the model
+stacking_regressor.fit(X_train, y_train)
+
+# Predict and evaluate
+y_pred_stack = stacking_regressor.predict(X_test)
+print("Stacking Regressor RMSE:", mean_squared_error(y_test, y_pred_stack, squared=False))
+print("Stacking Regressor R² Score:", r2_score(y_test, y_pred_stack))
