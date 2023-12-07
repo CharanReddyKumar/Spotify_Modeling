@@ -20,3 +20,17 @@ X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, 
 
 # Initialize Linear Regression model
 linear_reg = LinearRegression()
+
+
+# Train the model
+linear_reg.fit(X_train, y_train)
+
+# Make predictions
+y_pred = linear_reg.predict(X_test)
+
+# Evaluate the model
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+# Print evaluation metrics
+print(f"Linear Regression - Mean Squared Error: {mse:.4f}, R-squared: {r2:.4f}")
