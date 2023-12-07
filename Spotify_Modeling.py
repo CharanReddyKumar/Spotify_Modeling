@@ -331,6 +331,7 @@ plt.xlabel('Model')
 plt.tight_layout()
 plt.show()
 
-#%%
+#%%[markdown]
+# Based on RMSE and R² Score, the Stacking Regressor is the best performing model, followed by the Random Forest. Models like Linear Regression, Lasso, and Ridge perform poorly on this dataset, as indicated by the high RMSE and low R² scores. The SVM performed the worst according to these results.
 
 # %%
