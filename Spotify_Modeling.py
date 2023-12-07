@@ -102,6 +102,17 @@ y_pred_lasso = lasso_model.predict(X_test)
 print("Lasso Regression RMSE:", mean_squared_error(y_test, y_pred_lasso, squared=False))
 print("Lasso Regression R² Score:", r2_score(y_test, y_pred_lasso))
 
+# %%
+from catboost import CatBoostRegressor
+
+# Initialize and train model
+cat_model = CatBoostRegressor(random_state=42, verbose=0)
+cat_model.fit(X_train, y_train)
+
+# Predict and evaluate
+y_pred_cat = cat_model.predict(X_test)
+print("CatBoost RMSE:", mean_squared_error(y_test, y_pred_cat, squared=False))
+print("CatBoost R² Score:", r2_score(y_test, y_pred_cat))
 
 
 
