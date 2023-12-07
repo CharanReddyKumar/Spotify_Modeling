@@ -121,3 +121,17 @@ best_rf_mse_ex, best_rf_r2_ex = evaluate_model(best_rf_model, X_train_scaled, y_
 
 print("Tuned Random Forest (Extended) MSE:", best_rf_mse_ex, "R2:", best_rf_r2_ex)
 print("Best Random Forest (Extended) Parameters:", random_search_rf.best_params_)
+
+import xgboost as xgb
+
+# Defining the XGBoost regressor
+xgb_model = xgb.XGBRegressor(objective ='reg:squarederror', random_state=42)
+
+# Hyperparameter grid
+param_grid_xgb = {
+    'n_estimators': [100, 200, 300],
+    'learning_rate': [0.01, 0.05, 0.1],
+    'max_depth': [3, 5, 7],
+    'colsample_bytree': [0.7, 0.8],
+    'subsample': [0.7, 0.8]
+}
