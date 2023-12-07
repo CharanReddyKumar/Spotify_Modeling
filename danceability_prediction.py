@@ -79,3 +79,22 @@ rf_mse, rf_r2 = evaluate_model(rf_model, X_train_scaled, y_train, X_test_scaled,
 # Building and evaluating Gradient Boosting Regressor
 gb_model = GradientBoostingRegressor(random_state=42)
 gb_mse, gb_r2 = evaluate_model(gb_model, X_train_scaled, y_train, X_test_scaled, y_test)
+
+# Hyperparameter tuning for Random Forest using Grid Search
+param_grid_rf = {
+    'n_estimators': [100, 200],
+    'max_depth': [None, 10, 20],
+    'min_samples_split': [2, 5]
+}
+grid_search_rf = GridSearchCV(estimator=RandomForestRegressor(random_state=42), param_grid=param_grid_rf, cv=3, n_jobs=-1, scoring='neg_mean_squared_error')
+grid_search_rf.fit(X_train_scaled, y_train)
+
+# Best parameters and evaluation
+best_rf_model = grid_search_rf.best_estimator_
+best_rf_mse, best_rf_r2 = evaluate_model(best_rf_model, X_train_scaled, y_train, X_test_scaled, y_test)
+
+# Print the results
+print("Random Forest MSE:", rf_mse, "R2:", rf_r2)
+print("Gradient Boosting MSE:", gb_mse, "R2:", gb_r2)
+print("Tuned Random Forest MSE:", best_rf_mse, "R2:", best_rf_r2)
+print("Best Random Forest Parameters:", grid_search_rf.best_params_)
