@@ -34,3 +34,18 @@ r2 = r2_score(y_test, y_pred)
 
 # Print evaluation metrics
 print(f"Linear Regression - Mean Squared Error: {mse:.4f}, R-squared: {r2:.4f}")
+# %%
+#Decision Tree Regressor
+
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_squared_error, r2_score
+
+# Features (X) and Target Variable (y)
+X = df.drop(['instrumentalness', 'track_id', 'artists', 'album_name', 'track_name', 'track_genre'], axis=1)
+y = df['instrumentalness']
+
+# Feature scaling 
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
