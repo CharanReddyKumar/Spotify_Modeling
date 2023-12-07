@@ -43,3 +43,10 @@ mse = mean_squared_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
 print(f'MSE: {mse}, R-squared: {r2}')
+# %%
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+from sklearn.model_selection import GridSearchCV
+
+# Selecting relevant features and the target variable
+features = ['energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']
+target = 'danceability'
