@@ -79,7 +79,7 @@ y_pred_rf = rf_model.predict(X_test)
 print("Random Forest RMSE:", mean_squared_error(y_test, y_pred_rf, squared=False))
 print("Random Forest R² Score:", r2_score(y_test, y_pred_rf))
 
-rom xgboost import XGBRegressor
+from xgboost import XGBRegressor
 
 # Initialize and train model
 xgb_model = XGBRegressor(random_state=42)
@@ -89,5 +89,19 @@ xgb_model.fit(X_train, y_train)
 y_pred_xgb = xgb_model.predict(X_test)
 print("XGBoost RMSE:", mean_squared_error(y_test, y_pred_xgb, squared=False))
 print("XGBoost R² Score:", r2_score(y_test, y_pred_xgb))
+
+#%%
+from sklearn.linear_model import Lasso
+
+# Initialize and train model
+lasso_model = Lasso(random_state=42)
+lasso_model.fit(X_train, y_train)
+
+# Predict and evaluate
+y_pred_lasso = lasso_model.predict(X_test)
+print("Lasso Regression RMSE:", mean_squared_error(y_test, y_pred_lasso, squared=False))
+print("Lasso Regression R² Score:", r2_score(y_test, y_pred_lasso))
+
+
 
 
