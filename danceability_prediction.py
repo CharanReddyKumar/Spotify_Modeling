@@ -75,3 +75,7 @@ def evaluate_model(model, X_train, y_train, X_test, y_test):
 # Building and evaluating Random Forest Regressor
 rf_model = RandomForestRegressor(random_state=42)
 rf_mse, rf_r2 = evaluate_model(rf_model, X_train_scaled, y_train, X_test_scaled, y_test)
+
+# Building and evaluating Gradient Boosting Regressor
+gb_model = GradientBoostingRegressor(random_state=42)
+gb_mse, gb_r2 = evaluate_model(gb_model, X_train_scaled, y_train, X_test_scaled, y_test)
