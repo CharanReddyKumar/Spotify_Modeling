@@ -67,3 +67,5 @@ y_pred_linear = linear_model.predict(X_test)
 print("Linear Regression RMSE:", mean_squared_error(y_test, y_pred_linear, squared=False))
 print("Linear Regression R² Score:", r2_score(y_test, y_pred_linear))
 
+
+
