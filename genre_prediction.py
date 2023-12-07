@@ -214,6 +214,12 @@ print(classification_report(y_test, y_pred_set2))
 
 #both are so bad?
 
+
+#%% classification tree
+#visualize this process 
+
+
+
 #%% 
 #lets try something else
 
@@ -224,7 +230,7 @@ df_genres.drop(columns = ["track_id", "artists", "album_name", "track_name"])
 # Assuming genre is your Series or DataFrame column
 
 
-#%% classification tree
+
 
 
 #%%assessing model 
