@@ -1,4 +1,6 @@
 #%%
+#Linear Regressor
+
 #import libraries needed
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
@@ -106,3 +108,21 @@ r2 = r2_score(y_test, y_pred)
 # Print evaluation metrics
 print(f"Gradient Boosting Regressor - Mean Squared Error: {mse:.4f}, R-squared: {r2:.4f}")
 
+#%%
+
+#Random forest Regressor
+
+#Import library
+from sklearn.ensemble import RandomForestRegressor
+
+
+# Feature scaling
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(df.drop(['instrumentalness', 'track_id', 'artists', 'album_name', 'track_name', 'track_genre'], axis=1))
+y = df['instrumentalness']
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+# Initialize Random Forest Regressor
+random_forest_reg = RandomForestRegressor(random_state=42)
