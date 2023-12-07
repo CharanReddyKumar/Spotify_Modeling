@@ -61,6 +61,7 @@ from scipy.stats import skew
 #Load Data
 df =pd.read_csv('dataset.csv')
 df.head(5) #Read Data first 5 rows
+
 # %%
 #Check for null values
 df.isnull().sum()
@@ -76,7 +77,7 @@ df = df.drop("Unnamed: 0", axis=1) #remove the unnamed column
 # %%
 
 #Previews dataframe
-
+df.head(10)
 df.describe()
 
 # %%
@@ -113,22 +114,30 @@ plt.show()
 
 
 # As one of our target variables is popularity we dont see any great significant corelation between any other feature variable, so we can use regression models if we 
-
 # perform transformation if the data is not normally distributed or else we can try other modeling methods.
 # %%
 #Identify numeric and categorical columns
 
-numeric_cols = []
-categorical_cols = []
-for col in df.columns:
-    if df[col].dtype == np.float64 or df[col].dtype == np.int64:
-        numeric_cols.append(col)
-    else:
-        categorical_cols.append(col)
-
-print('numeric columns:', numeric_cols)
-print('Categorical columns:', categorical_cols)
-
+numeric_cols = ['popularity',
+  'duration_ms',
+  'danceability',
+  'energy',
+  'key',
+  'loudness',
+  'mode',
+  'speechiness',
+  'acousticness',
+  'instrumentalness',
+  'liveness',
+  'valence',
+  'tempo',
+  'time_signature']
+categorical_cols =  ['track_id',
+  'artists',
+  'album_name',
+  'track_name',
+  'explicit',
+  'track_genre']
 
 # %%
 # Seperate out the discrete numeric columns
