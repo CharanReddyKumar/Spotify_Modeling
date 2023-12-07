@@ -125,4 +125,14 @@ y_pred_ridge = ridge_model.predict(X_test)
 print("Ridge Regression RMSE:", mean_squared_error(y_test, y_pred_ridge, squared=False))
 print("Ridge Regression R² Score:", r2_score(y_test, y_pred_ridge))
 
+#%%
+from sklearn.svm import SVR
 
+# Initialize and train model
+svm_model = SVR()
+svm_model.fit(X_train, y_train)
+
+# Predict and evaluate
+y_pred_svm = svm_model.predict(X_test)
+print("SVM RMSE:", mean_squared_error(y_test, y_pred_svm, squared=False))
+print("SVM R² Score:", r2_score(y_test, y_pred_svm))
