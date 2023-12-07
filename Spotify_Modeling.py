@@ -136,3 +136,28 @@ svm_model.fit(X_train, y_train)
 y_pred_svm = svm_model.predict(X_test)
 print("SVM RMSE:", mean_squared_error(y_test, y_pred_svm, squared=False))
 print("SVM R² Score:", r2_score(y_test, y_pred_svm))
+
+#%%
+from sklearn.ensemble import VotingRegressor
+
+# Create the sub-models
+estimators = [
+    ('linear', linear_model),
+    ('random_forest', rf_model),
+    ('xgb', xgb_model),
+    ('lasso', lasso_model),
+    ('catboost', cat_model),
+    ('ridge', ridge_model),
+    ('svm', svm_model)
+]
+
+# Create the voting regressor
+voting_model = VotingRegressor(estimators, weights=[2, 3, 3, 1, 3, 1, 1])  # Weights can be adjusted
+
+# Fit the voting regressor to the training data
+voting_model.fit(X_train, y_train)
+
+# Predict and evaluate
+y_pred_voting = voting_model.predict(X_test)
+print("Voting Regressor RMSE:", mean_squared_error(y_test, y_pred_voting, squared=False))
+print("Voting Regressor R² Score:", r2_score(y_test, y_pred_voting))
