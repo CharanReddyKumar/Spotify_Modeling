@@ -95,3 +95,14 @@ gradient_boosting_reg = GradientBoostingRegressor(random_state=42)
 # Train the model
 gradient_boosting_reg.fit(X_train, y_train)
 
+
+# Make predictions
+y_pred = gradient_boosting_reg.predict(X_test)
+
+# Evaluate the model
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+# Print evaluation metrics
+print(f"Gradient Boosting Regressor - Mean Squared Error: {mse:.4f}, R-squared: {r2:.4f}")
+
