@@ -110,3 +110,14 @@ param_dist_rf = {
     'min_samples_split': randint(2, 11),
     'min_samples_leaf': randint(1, 11)
 }
+
+# Randomized Search for hyperparameter tuning
+random_search_rf = RandomizedSearchCV(RandomForestRegressor(random_state=42), param_distributions=param_dist_rf, n_iter=50, cv=3, n_jobs=-1, scoring='neg_mean_squared_error', random_state=42)
+random_search_rf.fit(X_train_scaled, y_train)
+
+# Best parameters and evaluation
+best_rf_model = random_search_rf.best_estimator_
+best_rf_mse_ex, best_rf_r2_ex = evaluate_model(best_rf_model, X_train_scaled, y_train, X_test_scaled, y_test)
+
+print("Tuned Random Forest (Extended) MSE:", best_rf_mse_ex, "R2:", best_rf_r2_ex)
+print("Best Random Forest (Extended) Parameters:", random_search_rf.best_params_)
