@@ -98,3 +98,15 @@ print("Random Forest MSE:", rf_mse, "R2:", rf_r2)
 print("Gradient Boosting MSE:", gb_mse, "R2:", gb_r2)
 print("Tuned Random Forest MSE:", best_rf_mse, "R2:", best_rf_r2)
 print("Best Random Forest Parameters:", grid_search_rf.best_params_)
+
+# %%
+from sklearn.model_selection import RandomizedSearchCV
+from scipy.stats import randint
+
+# Hyperparameters to tune
+param_dist_rf = {
+    'n_estimators': randint(100, 300),
+    'max_depth': [None, 10, 20, 30],
+    'min_samples_split': randint(2, 11),
+    'min_samples_leaf': randint(1, 11)
+}
