@@ -389,3 +389,95 @@ plt.show()
 #And from the plot below, we can see that 'danceability' and 'valence' are positively correlated.
 
 # %%
+
+# %%
+####################################
+#       Instrumentalness EDA            #
+####################################
+
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Distribution of 'instrumentalness'
+plt.figure(figsize=(10, 6))
+sns.histplot(df['instrumentalness'], bins=30, kde=True)
+plt.title('Distribution of Instrumentalness')
+plt.xlabel('Instrumentalness')
+plt.ylabel('Frequency')
+plt.show()
+
+#The plot you sent me is a histogram of instrumentality, which is a measure of how much a song is dominated by instruments, as opposed to vocals. The x-axis of the plot is instrumentality, ranging from 0 to 1. The y-axis is the frequency of songs with that instrumentality, measured in counts.
+#The plot shows that the distribution of instrumentality is bimodal, with two peaks at around 0.2 and 0.8. This means that there are two main groups of songs: those that are very vocal-driven, and those that are very instrumental-driven. There are also a significant number of songs in between these two peaks.
+
+#%%
+#Use box plots to visualize how instrumentalness varies across different genres or other categorical variables.
+# Box plot for 'instrumentalness' by 'genre'
+plt.figure(figsize=(12, 6))
+sns.boxplot(x='track_genre', y='instrumentalness', data=df)
+plt.title('Box Plot of Instrumentalness by Genre')
+plt.xlabel('Genre')
+plt.ylabel('Instrumentalness')
+plt.xticks(rotation=45, ha='right')
+plt.show()
+
+#The box plot shows that there is a variation in instrumentality across genres. 
+#Classical music songs are generally more instrumental-driven than pop music songs. The distribution of instrumentalities within each genre is also different. Classical music songs tend to have more similar instrumentalities than pop music songs.
+# %%
+# Distribution of 'instrumentalness' by 'genre'
+plt.figure(figsize=(12, 6))
+sns.histplot(x='instrumentalness', bins=30, kde=True, hue='track_genre', data=df)
+plt.title('Distribution of Instrumentalness by Genre')
+plt.xlabel('Instrumentalness')
+plt.ylabel('Frequency')
+plt.legend(title='Genre', loc='upper right', bbox_to_anchor=(1.2, 1))
+plt.show()
+
+#the graph shows that there is a wide range of instrumentality in songs across different genres. However, there are also some general trends, such as classical music being more instrumental-driven than pop music.
+#Classical music songs are generally more instrumental-driven than pop music songs.
+#Other genres, such as jazz and ambient music, also tend to have higher median instrumentalness than pop music.
+#Hip hop and electronic dance music (EDM) tend to have lower median instrumentalness than pop music.
+
+#%%
+#the correlation between 'instrumentalness' and other numeric features.
+# Correlation matrix focusing on 'instrumentalness'
+correlation_instrumentalness = df.corr()['instrumentalness'].sort_values(ascending=False)
+print("Correlation of 'instrumentalness' with other features:\n", correlation_instrumentalness)
+
+# Visualize the correlation matrix
+plt.figure(figsize=(10, 8))
+sns.heatmap(df.corr(), annot=True, fmt=".2f", cmap='coolwarm')
+plt.title("Correlation Matrix")
+plt.show()
+
+
+#the correlation matrix shows that there are some strong correlations between certain audio features, as well as some weaker correlations. 
+#This information can be used to understand how different audio features relate to each other, and to create new features that are combinations of existing features.
+#Danceability and energy have a strong positive correlation.
+#Speechiness and acousticness have a strong negative correlation.
+#Loudness and tempo have a weak positive correlation.
+#Instrumentalness and valence have a weak negative correlation.
+
+#%%
+#scatter plots to visualize the relationship between 'instrumentalness' and other features.
+# Scatter plot between 'instrumentalness' and 'energy'
+
+plt.figure(figsize=(8, 6))
+sns.scatterplot(x='instrumentalness', y='energy', data=df)
+plt.title("Scatter Plot of 'instrumentalness' and 'energy'")
+plt.show()
+#There is a positive correlation between instrumentalness and energy, meaning that songs that are more instrumental tend to be more energetic.
+#There is a wide range of instrumentalness and energy in music, with some songs being very instrumental and energetic, others being very instrumental but not energetic, and still others being vocal-driven and energetic.
+
+#%%
+#Explore how instrumentalness relates to popularity.
+
+# Scatter plot between 'instrumentalness' and 'popularity'
+plt.figure(figsize=(8, 6))
+sns.scatterplot(x='instrumentalness', y='popularity', data=df)
+plt.title("Scatter Plot of 'instrumentalness' and 'popularity'")
+plt.show()
+
+#There is a negative correlation between instrumentalness and popularity, meaning that songs that are more instrumental are generally less popular.
+#There is a wide range of instrumentality in popular songs, with some songs being very instrumental and others being very vocal-driven.
+#the scatter plot shows that there is no one-size-fits-all answer to the question of whether instrumental songs can be popular. While instrumental songs are generally less popular than vocal-driven songs, there are still many popular instrumental songs out there.
