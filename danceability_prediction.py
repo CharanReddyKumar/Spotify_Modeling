@@ -71,3 +71,7 @@ def evaluate_model(model, X_train, y_train, X_test, y_test):
     mse = mean_squared_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
     return mse, r2
+
+# Building and evaluating Random Forest Regressor
+rf_model = RandomForestRegressor(random_state=42)
+rf_mse, rf_r2 = evaluate_model(rf_model, X_train_scaled, y_train, X_test_scaled, y_test)
