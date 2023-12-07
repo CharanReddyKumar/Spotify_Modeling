@@ -79,4 +79,15 @@ y_pred_rf = rf_model.predict(X_test)
 print("Random Forest RMSE:", mean_squared_error(y_test, y_pred_rf, squared=False))
 print("Random Forest R² Score:", r2_score(y_test, y_pred_rf))
 
+rom xgboost import XGBRegressor
+
+# Initialize and train model
+xgb_model = XGBRegressor(random_state=42)
+xgb_model.fit(X_train, y_train)
+
+# Predict and evaluate
+y_pred_xgb = xgb_model.predict(X_test)
+print("XGBoost RMSE:", mean_squared_error(y_test, y_pred_xgb, squared=False))
+print("XGBoost R² Score:", r2_score(y_test, y_pred_xgb))
+
 
