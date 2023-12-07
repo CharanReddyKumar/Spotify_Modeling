@@ -113,6 +113,16 @@ cat_model.fit(X_train, y_train)
 y_pred_cat = cat_model.predict(X_test)
 print("CatBoost RMSE:", mean_squared_error(y_test, y_pred_cat, squared=False))
 print("CatBoost R² Score:", r2_score(y_test, y_pred_cat))
+#%%
+from sklearn.linear_model import Ridge
 
+# Initialize and train model
+ridge_model = Ridge(random_state=42)
+ridge_model.fit(X_train, y_train)
+
+# Predict and evaluate
+y_pred_ridge = ridge_model.predict(X_test)
+print("Ridge Regression RMSE:", mean_squared_error(y_test, y_pred_ridge, squared=False))
+print("Ridge Regression R² Score:", r2_score(y_test, y_pred_ridge))
 
 
