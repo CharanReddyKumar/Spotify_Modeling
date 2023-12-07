@@ -214,7 +214,6 @@ print(classification_report(y_test, y_pred_set2))
 
 #both are so bad?
 
-
 #%% 
 #lets try something else
 
@@ -222,8 +221,6 @@ print(classification_report(y_test, y_pred_set2))
 df_genres.drop(columns = ["track_id", "artists", "album_name", "track_name"])
 
 #%%
-
-
 # Assuming genre is your Series or DataFrame column
 
 
@@ -231,3 +228,6 @@ df_genres.drop(columns = ["track_id", "artists", "album_name", "track_name"])
 
 
 #%%assessing model 
+
+
+## song recomendation based on genre ?
