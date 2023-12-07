@@ -34,6 +34,7 @@ r2 = r2_score(y_test, y_pred)
 
 # Print evaluation metrics
 print(f"Linear Regression - Mean Squared Error: {mse:.4f}, R-squared: {r2:.4f}")
+
 # %%
 #Decision Tree Regressor
 
@@ -49,3 +50,13 @@ y = df['instrumentalness']
 # Feature scaling 
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+# Initialize Decision Tree Regressor model
+decision_tree_reg = DecisionTreeRegressor(random_state=42)
+
+# Train the model
+decision_tree_reg.fit(X_train, y_train)
+
