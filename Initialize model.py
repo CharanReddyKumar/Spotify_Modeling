@@ -60,3 +60,14 @@ decision_tree_reg = DecisionTreeRegressor(random_state=42)
 # Train the model
 decision_tree_reg.fit(X_train, y_train)
 
+
+
+# Make predictions
+y_pred = decision_tree_reg.predict(X_test)
+
+# Evaluate the model
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+# Print evaluation metrics
+print(f"Decision Tree Regressor - Mean Squared Error: {mse:.4f}, R-squared: {r2:.4f}")
