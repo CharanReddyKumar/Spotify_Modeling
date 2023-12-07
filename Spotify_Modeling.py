@@ -196,7 +196,9 @@ print("Voting Regressor RMSE:", mean_squared_error(y_test, y_pred_voting, square
 print("Voting Regressor R² Score:", r2_score(y_test, y_pred_voting))
 
 #%%[markdown]
+# * RMSE (Root Mean Square Error): The RMSE value is a measure of the average magnitude of errors in your predictions. An RMSE of 17.46 suggests that, on average, the predictions of the Voting Regressor deviate from the actual values by this amount. It's a moderate value, indicating a reasonable level of accuracy but with room for improvement.
 
+# * R² Score: The R² Score is a measure of how well the variations in your target variable are explained by the model. An R² Score of 0.392 suggests that the model explains approximately 39.2% of the variance in the target variable. This is a fair score but indicates that there's significant variance left unexplained by the model.
 #%%
 from sklearn.ensemble import StackingRegressor
 from sklearn.linear_model import Ridge
@@ -227,7 +229,9 @@ print("Stacking Regressor RMSE:", mean_squared_error(y_test, y_pred_stack, squar
 print("Stacking Regressor R² Score:", r2_score(y_test, y_pred_stack))
 
 #%%[markdown]
+# * RMSE: The RMSE value is a measure of the average magnitude of the prediction errors. A lower RMSE value is better, and in your case, an RMSE of approximately 15.17 indicates that the predictions made by the Stacking Regressor are, on average, about 15.17 units away from the actual values. This is a comparatively good result, suggesting that the Stacking Regressor is making relatively accurate predictions.
 
+# * R² Score: The R² Score represents the proportion of variance in the dependent variable (popularity) that is predictable from the independent variables. An R² Score of about 0.541 means that around 54.1% of the variance in your target variable is explained by the model, which is a moderate to good score. It indicates that the model has a reasonable fit to the data, though there is still some unexplained variance.
 #%%
 
 """ # Define the sub-models for VotingRegressor
@@ -278,7 +282,8 @@ voting_model_optimized.fit(X_train, y_train)
 y_pred_voting_optimized = voting_model_optimized.predict(X_test)
 print("Optimized Voting Regressor RMSE:", mean_squared_error(y_test, y_pred_voting_optimized, squared=False))
 print("Optimized Voting Regressor R² Score:", r2_score(y_test, y_pred_voting_optimized)) """
-
+#%%[markdown]
+# Thw above chunk was writen estimaate weights for voting regresion but cound not use as it took a very long time and did not finish.
 #%%
 def evaluate_model(model, X_test, y_test):
     y_pred = model.predict(X_test)
@@ -300,7 +305,6 @@ for model, name in zip(models, model_names):
 results_df = pd.DataFrame(results)
 print(results_df)
 # %%
-
 
 # Convert results to DataFrame for easier plotting
 results_df = pd.DataFrame(results)
@@ -329,3 +333,4 @@ plt.show()
 
 #%%
 
+# %%
