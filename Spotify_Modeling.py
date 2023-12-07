@@ -190,3 +190,54 @@ stacking_regressor.fit(X_train, y_train)
 y_pred_stack = stacking_regressor.predict(X_test)
 print("Stacking Regressor RMSE:", mean_squared_error(y_test, y_pred_stack, squared=False))
 print("Stacking Regressor R² Score:", r2_score(y_test, y_pred_stack))
+
+#%%
+
+""" # Define the sub-models for VotingRegressor
+estimators = [
+    ('linear', linear_model),
+    ('random_forest', rf_model),
+    ('xgb', xgb_model),
+    ('lasso', lasso_model),
+    ('catboost', cat_model),
+    ('ridge', ridge_model),
+    ('svm', svm_model)
+]
+
+# Grid Search for Optimal Weights
+from itertools import product
+
+# Define a range of weights
+weight_options = [1, 2, 3, 4, 5]
+
+# Generate combinations of weights
+weight_combinations = product(weight_options, repeat=len(estimators))
+
+# Define a function to create a VotingRegressor with given weights
+def get_voting_regressor(weights):
+    return VotingRegressor(estimators, weights=weights)
+
+# Grid search
+best_score = float('inf')
+best_weights = None
+
+for weights in weight_combinations:
+    model = get_voting_regressor(weights)
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    score = mean_squared_error(y_test, y_pred, squared=False)
+    if score < best_score:
+        best_score = score
+        best_weights = weights
+
+print("Best Weights:", best_weights)
+print("Best Score:", best_score)
+
+# Create the Voting Regressor with the Best Weights
+voting_model_optimized = VotingRegressor(estimators, weights=best_weights)
+voting_model_optimized.fit(X_train, y_train)
+
+# Evaluate the Optimized Model
+y_pred_voting_optimized = voting_model_optimized.predict(X_test)
+print("Optimized Voting Regressor RMSE:", mean_squared_error(y_test, y_pred_voting_optimized, squared=False))
+print("Optimized Voting Regressor R² Score:", r2_score(y_test, y_pred_voting_optimized)) """
