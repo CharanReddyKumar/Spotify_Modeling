@@ -146,3 +146,30 @@ best_xgb_mse, best_xgb_r2 = evaluate_model(best_xgb_model, X_train_scaled, y_tra
 
 print("XGBoost MSE:", best_xgb_mse, "R2:", best_xgb_r2)
 print("Best XGBoost Parameters:", grid_search_xgb.best_params_)
+
+# %%
+# Extracted MSE and R2 values from the user's code
+mse_values = [mse, rf_mse, gb_mse, best_rf_mse, best_rf_mse_ex,best_xgb_mse]
+r2_values = [r2, rf_r2, gb_r2, best_rf_r2, best_rf_r2_ex, best_xgb_r2]
+
+# Model names
+models = ['Linear Regression', 'Random Forest', 'Gradient Boosting',
+          'Tuned Random Forest', 'Tuned RF (Extended)', 'XGBoost']
+
+# Creating bar plots
+fig, ax = plt.subplots(1, 2, figsize=(14, 6))
+
+# MSE Bar Chart
+ax[0].bar(models, mse_values, color='skyblue')
+ax[0].set_title('Model MSE Comparison')
+ax[0].set_ylabel('Mean Squared Error (MSE)')
+ax[0].set_xticklabels(models, rotation=45, ha='right')
+
+# R2 Bar Chart
+ax[1].bar(models, r2_values, color='lightgreen')
+ax[1].set_title('Model R-squared Comparison')
+ax[1].set_ylabel('R-squared Value')
+ax[1].set_xticklabels(models, rotation=45, ha='right')
+
+plt.tight_layout()
+plt.show()
