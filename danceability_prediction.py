@@ -135,3 +135,14 @@ param_grid_xgb = {
     'colsample_bytree': [0.7, 0.8],
     'subsample': [0.7, 0.8]
 }
+
+# Grid Search for hyperparameter tuning
+grid_search_xgb = GridSearchCV(estimator=xgb_model, param_grid=param_grid_xgb, cv=3, n_jobs=-1, scoring='neg_mean_squared_error')
+grid_search_xgb.fit(X_train_scaled, y_train)
+
+# Best parameters and evaluation
+best_xgb_model = grid_search_xgb.best_estimator_
+best_xgb_mse, best_xgb_r2 = evaluate_model(best_xgb_model, X_train_scaled, y_train, X_test_scaled, y_test)
+
+print("XGBoost MSE:", best_xgb_mse, "R2:", best_xgb_r2)
+print("Best XGBoost Parameters:", grid_search_xgb.best_params_)
