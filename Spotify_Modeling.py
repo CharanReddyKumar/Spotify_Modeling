@@ -67,5 +67,16 @@ y_pred_linear = linear_model.predict(X_test)
 print("Linear Regression RMSE:", mean_squared_error(y_test, y_pred_linear, squared=False))
 print("Linear Regression R² Score:", r2_score(y_test, y_pred_linear))
 
+#%%
+from sklearn.ensemble import RandomForestRegressor
+
+# Initialize and train model
+rf_model = RandomForestRegressor(random_state=42)
+rf_model.fit(X_train, y_train)
+
+# Predict and evaluate
+y_pred_rf = rf_model.predict(X_test)
+print("Random Forest RMSE:", mean_squared_error(y_test, y_pred_rf, squared=False))
+print("Random Forest R² Score:", r2_score(y_test, y_pred_rf))
 
 
