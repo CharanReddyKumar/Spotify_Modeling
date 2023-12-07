@@ -9,10 +9,11 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from Spotify_EDA import df # Import df data frame from Spotify_EDA to use the processed data for modeling
-import seaborn as sns
 from scipy.stats import skew
 import xgboost as xgb
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # %%
 numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
@@ -241,3 +242,55 @@ voting_model_optimized.fit(X_train, y_train)
 y_pred_voting_optimized = voting_model_optimized.predict(X_test)
 print("Optimized Voting Regressor RMSE:", mean_squared_error(y_test, y_pred_voting_optimized, squared=False))
 print("Optimized Voting Regressor R² Score:", r2_score(y_test, y_pred_voting_optimized)) """
+
+%%
+def evaluate_model(model, X_test, y_test):
+    y_pred = model.predict(X_test)
+    rmse = mean_squared_error(y_test, y_pred, squared=False)
+    r2 = r2_score(y_test, y_pred)
+    return rmse, r2
+
+# List of all models
+models = [linear_model, rf_model, xgb_model, lasso_model, cat_model, ridge_model, svm_model, voting_model, stacking_regressor]
+model_names = ['Linear Regression', 'Random Forest', 'XGBoost', 'Lasso', 'CatBoost', 'Ridge', 'SVM', 'Voting Regressor', 'Stacking Regressor']
+
+# Evaluating all models
+results = []
+for model, name in zip(models, model_names):
+    rmse, r2 = evaluate_model(model, X_test, y_test)
+    results.append({'Model': name, 'RMSE': rmse, 'R² Score': r2})
+
+# Convert results to DataFrame
+results_df = pd.DataFrame(results)
+print(results_df)
+# %%
+
+
+
+# Convert results to DataFrame for easier plotting
+results_df = pd.DataFrame(results)
+
+# Set up the matplotlib figure
+plt.figure(figsize=(14, 6))
+
+# Plot RMSE
+plt.subplot(1, 2, 1)
+sns.barplot(x='Model', y='RMSE', data=results_df)
+plt.title('Comparison of Model RMSE')
+plt.xticks(rotation=45)
+plt.ylabel('RMSE')
+plt.xlabel('Model')
+
+# Plot R² Score
+plt.subplot(1, 2, 2)
+sns.barplot(x='Model', y='R² Score', data=results_df)
+plt.title('Comparison of Model R² Score')
+plt.xticks(rotation=45)
+plt.ylabel('R² Score')
+plt.xlabel('Model')
+
+plt.tight_layout()
+plt.show()
+
+
+
