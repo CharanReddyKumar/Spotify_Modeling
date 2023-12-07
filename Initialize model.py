@@ -71,3 +71,27 @@ r2 = r2_score(y_test, y_pred)
 
 # Print evaluation metrics
 print(f"Decision Tree Regressor - Mean Squared Error: {mse:.4f}, R-squared: {r2:.4f}")
+
+#%%
+#Gradient Boosting Modeling
+
+from sklearn.ensemble import GradientBoostingRegressor
+
+
+# Features (X) and Target Variable (y)
+X = df.drop(['instrumentalness', 'track_id', 'artists', 'album_name', 'track_name', 'track_genre'], axis=1)
+y = df['instrumentalness']
+
+# Feature scaling (optional but recommended for Gradient Boosting)
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+# Initialize Gradient Boosting Regressor model
+gradient_boosting_reg = GradientBoostingRegressor(random_state=42)
+
+# Train the model
+gradient_boosting_reg.fit(X_train, y_train)
+
