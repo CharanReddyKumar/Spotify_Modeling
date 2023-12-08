@@ -239,14 +239,14 @@ df_genres.head()
 # the genre label to select the desired ones for analysis 
 data_types = df_genres.dtypes
 #track_genre is a string with several categories, lets examine further 
-
-#All of the genres present in the dataset
+#Lets see all of the genres present in the dataset
 unique_explicit_values = df_genres['track_genre'].unique()
 print(unique_explicit_values)
 num_unique_genres = df_genres['track_genre'].nunique()
 print(f'Number of unique genres: {num_unique_genres}')
 
-#there are 114 unique genres... we will subset our data into predicting just a few of these
+#there are 114 unique genres...
+# We will subset our data into predicting just a few of these 
 #%%
 #Do all genres have enough data to explore? 
 #Count the occurrences of each genre in the 'track_genre' column
@@ -255,29 +255,27 @@ genre_counts = df_genres['track_genre'].value_counts()
 num_genres_with_1000_rows = (genre_counts >= 1000).sum()
 print(f"Number of genres with at least 1000 rows: {num_genres_with_1000_rows}")
 #33 genres have 1000+  records, lets see what those are: 
+
 # Filter genres with at least 1000 rows
 genres_1000 = genre_counts[genre_counts >= 1000].index
 
-# Subset the dataframe based on selected genres
+#Subset the dataframe based on selected genres
 df_selected = df_genres[df_genres['track_genre'].isin(genres_1000)]
 
 # Display the selected genres
 print("Selected genres with at least 1000 rows:")
 print(genres_1000)
+
 #Lets go with a subset of genres from those with at least 1000 rows so that 
-#we can ensure enough training data 
-
-#%% 
-# selecting relevant genres:
-# I would like to explore how spotify can tell the difference between
-#similar genres, lets select electornic music that we might not know
-#the specific differences between ourselves and see if the model can classify them
-
+#we can ensure enough training data for predictions
+#%%
 # Selecting relevant genres:
-# I would like to explore how Spotify can tell the difference between
-# similar genres. Let's select electronic music genres that we might not know
-# the specific differences between ourselves and see if the model can classify them.
+# Lets go further into selecting relevant genres:
+#We would like to explore how spotify can tell the difference between
+#similar genres, lets select electornic music that we might not know
+#the specific differences between ourselves, and see if a model can classify them
 
+#Select the electronic genres
 genres_list = ['disco', 'electronic', 'industrial', 'techno', 'synth-pop', 'funk']
 selected_genres = df_selected[df_selected['track_genre'].isin(genres_list)]
 df_selected_genres_shape = selected_genres.shape
@@ -285,6 +283,7 @@ print(f"Shape of the selected genres DataFrame: {df_selected_genres_shape}")
 selected_genres.head()
 
 #%%
+#now lets look at the historgrams of our genres
 import matplotlib.pyplot as plt
 encoded_genres = selected_genres['track_genre']
 
@@ -297,7 +296,7 @@ plt.show()
 
 
 # %%
-#plot the numeric variables by genre 
+#plot the numeric variables by genre
 # checking the outliers
 features_continuous_numerical = ['popularity',
  'duration_ms',
@@ -322,6 +321,7 @@ plt.tight_layout()
 
 plt.show()
 
+###ADD CODE INTERPRETATION 
 #%%
 ####################################
 #       DANCEABILTY EDA            #

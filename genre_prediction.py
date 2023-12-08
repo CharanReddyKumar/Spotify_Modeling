@@ -9,7 +9,6 @@ import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
 from scipy.stats import skew
 # %%
-#Load Data
 df =pd.read_csv('dataset.csv')
 df.head(5) #Read Data first 5 rows
 #Check for null values
@@ -28,7 +27,6 @@ df_genres = df.copy()
 #%%
 #%% 
 #PREDICT GENRES OVERALL
-
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
@@ -220,20 +218,17 @@ print(classification_report(y_test, y_pred_set2))
 
 
 
-#%% 
-#lets try something else
-
-#aggregate generes for more trainign data
-df_genres.drop(columns = ["track_id", "artists", "album_name", "track_name"])
-
-#%%
-# Assuming genre is your Series or DataFrame column
-
-
-
-
 
 #%%assessing model 
+##%
+
+#1. overall prediction 
+#2. specific genres
+#3. feature selection? Which ones are valuable?
+#4. Lets look at a tree
 
 
+
+#%%
 ## song recomendation based on genre ?
+
