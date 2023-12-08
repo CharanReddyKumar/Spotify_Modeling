@@ -47,7 +47,6 @@ predictions = model.predict(X_test)
 score = accuracy_score(y_test, predictions)
 print(score)
 
-#not so good
 
 #%%
 ####SPECIFIC GENRES?#####
@@ -109,7 +108,6 @@ print(predict_genre.head())
 #Correlation analysis 
 import pandas as pd
 
-# Assuming df is your DataFrame with numeric features and dummy coded factor variables
 correlation_matrix = predict_genre.corr()
 target_correlation = correlation_matrix['track_genre'].abs()  # Replace 'genre_dummy' with your actual target variable
 
@@ -210,25 +208,9 @@ print(f"\nModel with features set 2 Accuracy: {accuracy_set2:.2f}")
 print("Classification Report:")
 print(classification_report(y_test, y_pred_set2))
 
-#both are so bad?
-
-
-#%% classification tree
-#visualize this process 
+#both bad , but lets assess classifications with feature set 1 bc its better 
 
 
 
 
-#%%assessing model 
-##%
-
-#1. overall prediction 
-#2. specific genres
-#3. feature selection? Which ones are valuable?
-#4. Lets look at a tree
-
-
-
-#%%
-## song recomendation based on genre ?
-
+# %%
