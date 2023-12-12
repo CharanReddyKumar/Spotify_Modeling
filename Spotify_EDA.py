@@ -230,7 +230,6 @@ for feature in features_continuous_numerical:
 #%%[markdown]
 # We see that apart from energy, acousticness and valence, there are a lot of outliers in all other features
 # %%
-
 #########################
 #       GENRE EDA       #
 #########################
@@ -245,7 +244,7 @@ print(unique_explicit_values)
 num_unique_genres = df_genres['track_genre'].nunique()
 print(f'Number of unique genres: {num_unique_genres}')
 
-#there are 114 unique genres...
+#there are 114 unique genres 
 # We will subset our data into predicting just a few of these 
 #%%
 #Do all genres have enough data to explore? 
