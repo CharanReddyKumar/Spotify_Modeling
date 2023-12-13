@@ -343,6 +343,30 @@ for feature in features_continuous_numerical:
     plt.ylabel(f'Mean {feature}')
     plt.legend()
     plt.show()
+
+features_continuous_numerical = ['popularity', 'duration_ms', 'danceability', 'energy', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']
+
+sns.set(style="whitegrid")
+
+for feature in features_continuous_numerical:
+    # Calculate mean of the variable for each genre (Group 1)
+    mean_values1 = selected_genres1.groupby('track_genre')[feature].mean()
+
+    # Calculate mean of the variable for each genre (Group 2)
+    mean_values2 = selected_genres2.groupby('track_genre')[feature].mean()
+
+    # Plot GROUP 1 Pie Chart
+    plt.figure(figsize=(8, 4))
+    plt.pie(mean_values1, labels=mean_values1.index, autopct='%1.1f%%', startangle=140, colors=sns.color_palette('pastel'), wedgeprops=dict(width=0.4))
+    plt.title(f'Mean {feature} Distribution (Group 1)')
+    plt.show()
+
+    # Plot GROUP 2 Pie Chart
+    plt.figure(figsize=(8, 4))
+    plt.pie(mean_values2, labels=mean_values2.index, autopct='%1.1f%%', startangle=140, colors=sns.color_palette('pastel'), wedgeprops=dict(width=0.4))
+    plt.title(f'Mean {feature} Distribution (Group 2)')
+    plt.show()
+
 #%%
 ####################################
 #       DANCEABILTY EDA            #
