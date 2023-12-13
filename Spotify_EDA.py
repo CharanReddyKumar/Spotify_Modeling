@@ -233,7 +233,7 @@ for feature in features_continuous_numerical:
 #########################
 #       GENRE EDA       #
 #########################
-#%%
+
 df_genres.head()
 #Checking variable types prior to encoding to know the names of genres
 data_types = df_genres.dtypes
@@ -247,7 +247,7 @@ num_unique_genres = df_genres['track_genre'].nunique()
 print(f'Number of unique genres: {num_unique_genres}')
 
 #There are 114 unique genres 
-#%%
+
 #Count the occurrences of each genre in the 'track_genre' column
 genre_counts = df_genres['track_genre'].value_counts()
 # Count the number of genres with at least 1000 rows
@@ -267,7 +267,6 @@ df_selected = df_genres[df_genres['track_genre'].isin(genres_1000)]
 #This analysis will examine a subset of genres, those with at least 1000 rows so that 
 #there is enough training data for predictions 
 
-#%%
 # Selecting relevant genres:
 #GROUP 1
 #We would like to explore how spotify can tell the difference between
@@ -280,7 +279,7 @@ selected_genres1 = df_selected[df_selected['track_genre'].isin(genres_list1)]
 df_selected_genres_shape1 = selected_genres1.shape
 print(f"Shape of the selected genres DataFrame: {df_selected_genres_shape1}")
 selected_genres1.head()
-#%%
+
 # Selecting relevant genres:
 #GROUP 2
 # Now taking a look at very distinct genres that we don't
@@ -293,7 +292,6 @@ df_selected_genres_shape2 = selected_genres2.shape
 print(f"Shape of the selected genres DataFrame: {df_selected_genres_shape2}")
 selected_genres2.head()
 
-# %%
 #Plot group 1 and group 2 central tendency, outliers, and distributions 
 
 # GROUP 1 Box Plots to check the outliers
