@@ -461,6 +461,8 @@ y = music_data['track_genre']
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+print('Genre Set 1 (Similar) Classification Models')
+
 # Decision Tree Classifier
 dt_classifier = DecisionTreeClassifier()
 dt_classifier.fit(X_train, y_train)
@@ -498,6 +500,7 @@ y = music_data['track_genre']
 
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+print('Genre Set 2 (Distinct) Classification Models')
 
 # Decision Tree Classifier
 dt_classifier2 = DecisionTreeClassifier()
@@ -625,6 +628,8 @@ train_accuracy2 = accuracy_score(y_train, train_predictions2)
 test_accuracy2 = accuracy_score(y_test, test_predictions2)
 
 # Print out accuracies
-print(f'Random Forest Classifier Accuracy: {rf_accuracy2:.4f}')
-print(f'Random Forest Classifier Train Accuracy: {train_accuracy2:.4f}')
-print(f'Random Forest Classifier Test Accuracy: {test_accuracy2:.4f}')
+print(f'Original Random Forest Classifier Accuracy: {rf_accuracy2:.4f}')
+print(f'Original Random Forest Classifier Train Accuracy: {train_accuracy2:.4f}')
+print(f'Original Random Forest Classifier Test Accuracy: {test_accuracy2:.4f}')
+
+# %%
