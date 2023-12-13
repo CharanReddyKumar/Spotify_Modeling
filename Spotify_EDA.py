@@ -233,94 +233,116 @@ for feature in features_continuous_numerical:
 #########################
 #       GENRE EDA       #
 #########################
+#%%
 df_genres.head()
-#check variable types prior to encoding, as we need to know
-# the genre label to select the desired ones for analysis 
+#Checking variable types prior to encoding to know the names of genres
 data_types = df_genres.dtypes
-#track_genre is a string with several categories, lets examine further 
-#Lets see all of the genres present in the dataset
+#track_genre is a string with several categories
+
+#View all of the genres present in the dataset
 unique_explicit_values = df_genres['track_genre'].unique()
 print(unique_explicit_values)
+
 num_unique_genres = df_genres['track_genre'].nunique()
 print(f'Number of unique genres: {num_unique_genres}')
 
-#there are 114 unique genres 
-# We will subset our data into predicting just a few of these 
+#There are 114 unique genres 
 #%%
-#Do all genres have enough data to explore? 
 #Count the occurrences of each genre in the 'track_genre' column
 genre_counts = df_genres['track_genre'].value_counts()
 # Count the number of genres with at least 1000 rows
 num_genres_with_1000_rows = (genre_counts >= 1000).sum()
 print(f"Number of genres with at least 1000 rows: {num_genres_with_1000_rows}")
-#33 genres have 1000+  records, lets see what those are: 
 
+#33 genres have 1000+  records 
 # Filter genres with at least 1000 rows
 genres_1000 = genre_counts[genre_counts >= 1000].index
-
-#Subset the dataframe based on selected genres
-df_selected = df_genres[df_genres['track_genre'].isin(genres_1000)]
 
 # Display the selected genres
 print("Selected genres with at least 1000 rows:")
 print(genres_1000)
+#Subset the dataframe based on genres with 1000+ 
+df_selected = df_genres[df_genres['track_genre'].isin(genres_1000)]
 
-#Lets go with a subset of genres from those with at least 1000 rows so that 
-#we can ensure enough training data for predictions
+#This analysis will examine a subset of genres, those with at least 1000 rows so that 
+#there is enough training data for predictions 
+
 #%%
 # Selecting relevant genres:
-# Lets go further into selecting relevant genres:
+#GROUP 1
 #We would like to explore how spotify can tell the difference between
 #similar genres, lets select electornic music that we might not know
 #the specific differences between ourselves, and see if a model can classify them
 
 #Select the electronic genres
-genres_list = ['disco', 'electronic', 'industrial', 'techno', 'synth-pop', 'funk']
-selected_genres = df_selected[df_selected['track_genre'].isin(genres_list)]
-df_selected_genres_shape = selected_genres.shape
-print(f"Shape of the selected genres DataFrame: {df_selected_genres_shape}")
-selected_genres.head()
-
+genres_list1 = ['disco', 'electronic', 'industrial', 'techno', 'synth-pop', 'funk']
+selected_genres1 = df_selected[df_selected['track_genre'].isin(genres_list1)]
+df_selected_genres_shape1 = selected_genres1.shape
+print(f"Shape of the selected genres DataFrame: {df_selected_genres_shape1}")
+selected_genres1.head()
 #%%
-#now lets look at the historgrams of our genres
-import matplotlib.pyplot as plt
-encoded_genres = selected_genres['track_genre']
+# Selecting relevant genres:
+#GROUP 2
+# Now taking a look at very distinct genres that we don't
+# Expect to sound similar
 
-plt.hist(encoded_genres, bins=len(genres_list), align='mid', rwidth=0.8, color='skyblue')
-plt.xlabel('Encoded Genre')
-plt.ylabel('Frequency')
-plt.title('Histogram of Encoded Genres')
-plt.xticks(range(len(genres_list)), genres_list)
-plt.show()
-
+#Select the distinct genres
+genres_list2 = ['acoustic', 'metalcore', 'rock', 'techno', 'sad', 'reggae']
+selected_genres2 = df_selected[df_selected['track_genre'].isin(genres_list2)]
+df_selected_genres_shape2 = selected_genres2.shape
+print(f"Shape of the selected genres DataFrame: {df_selected_genres_shape2}")
+selected_genres2.head()
 
 # %%
-#plot the numeric variables by genre
-# checking the outliers
-features_continuous_numerical = ['popularity',
- 'duration_ms',
- 'danceability',
- 'energy',
- 'loudness',
- 'speechiness',
- 'acousticness',
- 'instrumentalness',
- 'liveness',
- 'valence',
- 'tempo']
-import seaborn as sns
-import matplotlib.pyplot as plt
+#Plot group 1 and group 2 central tendency, outliers, and distributions 
+
+# GROUP 1 Box Plots to check the outliers
+features_continuous_numerical = ['popularity', 'duration_ms', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo']
+
 sns.set(style="whitegrid")
-fig, axes = plt.subplots(nrows=4, ncols=3, figsize=(15, 12))
-axes = axes.flatten()
-for i, feature in enumerate(features_continuous_numerical):
-    sns.boxplot(x='track_genre', y=feature, data=selected_genres, ax=axes[i])
-    axes[i].set_title(f'{feature} by Genre')
-plt.tight_layout()
 
-plt.show()
+for feature in features_continuous_numerical:
+    # GROUP 1
+    plt.figure(figsize=(8, 6))
+    sns.boxplot(x='track_genre', y=feature, data=selected_genres1)
+    plt.title(f'{feature} by Genre (Group 1)')
+    plt.xlabel('Genre')
+    plt.ylabel(feature)
+    plt.show()
 
-###ADD CODE INTERPRETATION 
+    # Calculate mean of the variable for each genre (Group 1)
+    mean_values1 = selected_genres1.groupby('track_genre')[feature].mean()
+
+    # Print mean values (Group 1)
+    print(f"Mean {feature} by Genre (Group 1):")
+    print(mean_values1)
+    print('\n' + '-'*30 + '\n')  # Separator for better readability
+
+    # GROUP 2
+    plt.figure(figsize=(8, 6))
+    sns.boxplot(x='track_genre', y=feature, data=selected_genres2)
+    plt.title(f'{feature} by Genre (Group 2)')
+    plt.xlabel('Genre')
+    plt.ylabel(feature)
+    plt.show()
+
+    # Calculate mean of the variable for each genre (Group 2)
+    mean_values2 = selected_genres2.groupby('track_genre')[feature].mean()
+
+    # Print mean values (Group 2)
+    print(f"Mean {feature} by Genre (Group 2):")
+    print(mean_values2)
+    print('\n' + '-'*30 + '\n')  # Separator for better readability
+
+    # Compare means using a bar plot
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x=mean_values1.index, y=mean_values1, color='blue', label='Group 1')
+    sns.barplot(x=mean_values2.index, y=mean_values2, color='orange', label='Group 2')
+    plt.title(f'Mean {feature} by Genre Comparison')
+    plt.xlabel('Genre')
+    plt.ylabel(f'Mean {feature}')
+    plt.legend()
+    plt.show()
 #%%
 ####################################
 #       DANCEABILTY EDA            #
