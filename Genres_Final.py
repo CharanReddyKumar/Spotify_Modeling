@@ -1,3 +1,33 @@
+"""
+Music Genre Classification and Feature Selection
+
+This script performs music genre classification using machine learning models on two sets of genres:
+1. Similar Genres (Group 1): Electronic music genres with potential similarities.
+2. Distinct Genres (Group 2): Genres expected to be distinct from each other.
+
+The code includes data preprocessing, exploratory analysis, feature selection, and classification using Decision Tree, Random Forest, Support Vector Classifier (SVC), and K-Nearest Neighbors (KNN).
+
+Functions:
+- `calculate_accuracy`: Calculates and prints the training, testing, and overall accuracies for a given model.
+- `feature_selection`: Performs feature selection using correlation analysis, Recursive Feature Elimination (RFE), and Tree-based feature importance.
+
+Usage:
+1. Run the script to load the dataset, perform data cleaning, and conduct exploratory data analysis.
+2. The script then selects specific genres from the dataset for analysis and explores their central tendencies.
+3. Genre-specific models are trained and tested using Decision Tree, Random Forest, SVC, and KNN classifiers.
+4. Feature selection is performed separately for each genre set using correlation analysis, RFE, and Tree-based methods.
+5. Classifier models are trained on the selected features, and their accuracies are compared.
+
+Dependencies:
+- pandas
+- numpy
+- sklearn
+- matplotlib
+- seaborn
+
+Author: Pauline Mnev
+Date: 12/14/2023
+"""
 
 #%%
 #Import 
@@ -17,6 +47,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 
 # %%
+
 df =pd.read_csv('dataset.csv')
 df.head(5) #Read Data first 5 rows
 #Check for null values
@@ -461,6 +492,8 @@ y = music_data['track_genre']
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+print('Genre Set 1 (Similar) Classification Models')
+
 # Decision Tree Classifier
 dt_classifier = DecisionTreeClassifier()
 dt_classifier.fit(X_train, y_train)
@@ -498,6 +531,7 @@ y = music_data['track_genre']
 
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+print('Genre Set 2 (Distinct) Classification Models')
 
 # Decision Tree Classifier
 dt_classifier2 = DecisionTreeClassifier()
@@ -625,6 +659,8 @@ train_accuracy2 = accuracy_score(y_train, train_predictions2)
 test_accuracy2 = accuracy_score(y_test, test_predictions2)
 
 # Print out accuracies
-print(f'Random Forest Classifier Accuracy: {rf_accuracy2:.4f}')
-print(f'Random Forest Classifier Train Accuracy: {train_accuracy2:.4f}')
-print(f'Random Forest Classifier Test Accuracy: {test_accuracy2:.4f}')
+print(f'Original Random Forest Classifier Accuracy: {rf_accuracy2:.4f}')
+print(f'Original Random Forest Classifier Train Accuracy: {train_accuracy2:.4f}')
+print(f'Original Random Forest Classifier Test Accuracy: {test_accuracy2:.4f}')
+
+# %%
